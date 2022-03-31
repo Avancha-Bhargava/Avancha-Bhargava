@@ -1,0 +1,9 @@
+def print_items(n):
+    for i in range(n):
+        for j in range(n):
+            print(i,j)
+print_items(10)
+
+## When we printed it ran n*n times so O(n^2)
+## It doesn't matter we can have any number of for loops deep inside say i,j,k,l,m it is still O(n^2)
+

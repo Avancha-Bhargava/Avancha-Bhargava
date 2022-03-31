@@ -1,0 +1,16 @@
+def print_items(n):
+    for i in range(n):
+        for j in range(n):
+            print(i,j)
+    for k in range(n):
+        print(k)
+
+
+print_items(10)
+
+## 1 is o(n^2) and another is O(n)
+## so it is O(n^2+n)
+## as n reached high n^2 dominates n as value is pretty high
+## So we drop non dominants and becomes O(n^2)
+
+ 

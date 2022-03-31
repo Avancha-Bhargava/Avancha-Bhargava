@@ -1,0 +1,227 @@
+## Big O
+## append at end is O(1)
+## remove at end is O(n)
+## Adding item at front O(1)
+## Reomving at front O(1)
+## Appending in middle O(n)
+## Removing in middle O(n)
+## Lookup by value or index it is O(n)
+
+## Removing or appneding from begining linked list is better
+## for pop and look by index list is better than linked list
+## Rest places, both are same
+
+
+from asyncio.windows_events import NULL
+
+
+class Node:
+    def __init__(self,value):
+        self.value = value
+        self.next = None
+
+class LinkedList:
+    def __init__(self,value):
+        #create a node
+        new_node = Node(value)
+        self.head = new_node
+        self.tail = new_node
+        self.length = 1
+
+    def append(self,value):
+        new_node = Node(value)
+        if self.head == None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        self.length += 1
+        return True
+
+    def pop(self):
+        if self.head == None:
+            print("Nothing to pop")
+            return None
+        else:
+            temp = self.head
+            pre = self.head
+            while (temp.next) :
+                pre = temp
+                temp = temp.next
+            self.tail = pre
+            self.tail.next = None
+            self.length -= 1
+            if self.length == 0:
+                self.head = None
+                self.tail = None
+            return(temp.value)
+
+    def prepend(self,value):
+        new_node = Node(value)
+        if self.head == None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+        self.length += 1
+        return True
+
+    def pop_first(self):
+        if self.head == None:
+            return (None)
+        else:
+            temp = self.head
+            self.head = self.head.next
+            temp.next = None
+            self.length -= 1
+            if self.length == 0:
+                self.head = None
+                self.tail = None
+            return (temp.value)
+
+    def get(self,index):
+        if index <0 or index >=self.length:
+            return None
+        else:
+            temp = self.head
+            for _ in range(index):
+                temp = temp.next
+            return(temp)
+
+    def set_value(self,index,value):
+        if index <0 or index >=self.length:
+            return None
+        else:
+            temp = self.head
+            for _ in range(index):
+                temp = temp.next
+            temp.value = value
+            return temp
+
+        
+    def Insert(self,index,value):
+        #create a new node and insert in middle O(n)
+        if index <0 or index >=self.length:
+            return None
+        if index ==0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        new_node = Node(value)
+        temp = self.head
+        for _ in range(index-1):
+            temp = temp.next
+        new_node.next = temp.next
+        temp.next = new_node
+        self.length+=1
+        return True
+        
+    def remove(self,index):
+        if index <0 or index >=self.length:
+            return None
+        if index ==0:
+            return self.pop_first()
+        if index == self.length:
+            return self.pop()
+        temp = self.head
+        pre = self.head
+        for i in range(index):
+            temp =temp.next
+            if i != index-1:
+                pre = temp
+        print(pre.value, temp.value)
+        pre.next = temp.next
+        temp.next = None
+        return temp
+
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        after = temp.next
+        before = None
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+            
+    def print_list(self):
+        temp = self.head
+        while temp != None:
+            print(temp.value)
+            temp = temp.next
+
+
+
+
+
+
+my_linked_list = LinkedList(1)
+my_linked_list.append(2)
+#my_linked_list.print_list()
+
+#new_linked_list = LinkedList(0)
+#new_linked_list.print_list()
+##  pop 2 items
+print(my_linked_list.pop())
+
+
+## pop 1 item
+print(my_linked_list.pop())
+
+## pop 0 items
+print(my_linked_list.pop())
+
+## Prepend 1
+my_linked_list.prepend(1)
+
+#my_linked_list.print_list()
+
+## Prepend 2
+my_linked_list.prepend(2)
+
+#my_linked_list.print_list()
+
+
+## Prepend 3
+my_linked_list.prepend(3)
+
+my_linked_list.print_list()
+
+## Pop first 1
+print(my_linked_list.pop_first())
+print(my_linked_list.pop_first())
+print(my_linked_list.pop_first())
+print(my_linked_list.pop_first()) 
+
+my_linked_list.append(2)
+my_linked_list.append(3)
+
+my_linked_list.get(1)
+my_linked_list.print_list()
+my_linked_list.set_value(1,4)
+my_linked_list.print_list()
+
+print("insert method")
+my_linked_list.Insert(1,1)
+
+my_linked_list.print_list()
+
+
+print("Remove method")
+my_linked_list.remove(2)
+
+my_linked_list.print_list()
+
+print("appending")
+my_linked_list.prepend(6)
+
+my_linked_list.prepend(12)
+
+my_linked_list.print_list()
+
+print("reverse")
+my_linked_list.reverse()
